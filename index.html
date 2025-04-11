@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            frases motivadoras
+        </title>
+       <style>
+           body{
+               font-family: Arial, Helvetica, sans-serif;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               height: 100vh;
+               background-color: aqua;
+               margin: 0;
+           }
+           .container{
+               text-align: center;
+               background-color: rgb(19, 116, 116);
+               border-radius: 8px;
+               padding: 20px;
+               box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+           }
+           .quote{
+               font-size: 1.5em;
+               margin-bottom: 20px;
+               font-style: italic;
+               color: #333;
+           }
+           .author{
+               font-size: 1.2em;
+               color: #555;
+               margin-top: 10px;
+           }
+           button{
+               padding: 10px 20px;
+               font-size: 1em;
+               background-color: royalblue;
+               color: seashell;
+               border: none;
+               border-radius: 5px;
+               cursor: pointer;
+           }
+           button:hover{
+               background-color: rgb(5, 40, 61);
+           }
+       </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="quote" class="quote"></div>
+            <div id="author" class="author"></div>
+            <button onclick="showRandomQuote()">mostrar otra</button>
+        </div>
+        <script>
+            const quotes = [
+                { text: "Cuando la necesidad de éxito es tanta como la necesidad de respirar, entonces serás exitoso", author:"Eric Thomas"},
+                { text: " Cuando dejo ir lo que soy, me convierto en lo que debería ser", author:"Lao Tzu"},
+                { text: " mija donde van", author:"anonimo"},
+                { text: "No importa lo lento que vayas mientras que no pares", author:"confucio"}
+            ];
+            function showRandomQuote(){
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const randomQuote = quotes[randomIndex];
+
+                document.getElementById("quote").innerText =`"${randomQuote.text}"`;
+                document.getElementById("author").innerText = `-${randomQuote.author}`;
+
+                localStorage.setItem("lastQuote", JSON.stringify(randomQuote));
+
+            }
+            function loadLastQuote(){
+                const lastQuote = localStorage.getItem("lastQuote");
+                if(lastQuote){
+                    const parsedQuote= JSON.parse(lastQuote);
+                document.getElementById("quote").innerText =`"${parsedQuote.text}"`;
+                document.getElementById("author").innerText = `-${parsedQuote.author}`;
+                }else{
+                    showRandomQuote();
+                }
+            }
+            window.onload = loadLastQuote;
+        </script>
+    </body>
+</html>
